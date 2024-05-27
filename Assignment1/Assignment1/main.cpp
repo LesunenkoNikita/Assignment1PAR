@@ -4,11 +4,12 @@
 size_t bufferSize = 256;
 char** text;
 int rowsAmount = 10;
+int curRow = 0;
 
 void array2dMalloc(char** arr) 
 {
 	arr = (char**)malloc(rowsAmount * sizeof(char*));
-	for (int i = 0; i < rowsAmount; i++)
+	for (int i = 0; i < rowsAmount-1; i++)
 	{
 		arr[i] = (char*)calloc(bufferSize, sizeof(char));
 	}
@@ -26,9 +27,58 @@ void printInfo(void)
 7 - To search text");
 } 
 
+void appendText(void)
+{
+	printf("Enter the text you want to append: ");
+	char* input = (char*)malloc(bufferSize * sizeof(char));
+	fgets(input, bufferSize, stdin);
+	int idx = 0;
+	for (idx; idx < sizeof(text[curRow] - 1); idx++)
+	{
+		if (text[curRow][idx] = '\0')
+		{
+			break;
+		}
+	}
+	for (int i = 0; i < sizeof(input)-1; i++)
+	{
+		text[curRow][idx] =input[i];
+		idx++;
+	}
+	free(input);
+}
+
+void newLine(void)	
+{
+	curRow++;
+	printf("New line is started");
+}
+
+void textPrint(void)
+{
+	for (int r = 0; r <= curRow; r++)
+	{
+		/*for (int i = 0; i < sizeof(text[r]) - 1; i++)
+		{
+			if (text[r][i] = '\0')
+			{
+				printf("\n");
+				break;
+			}
+			else
+			{
+				printf("%c", text[r][i]);
+			}
+		}*/
+		printf("%s\n", text[r]);
+	}
+}
+
+
 
 int main(void) 
 { 
+	//to make a dynamic array!
 	array2dMalloc(text);
 	printInfo();
 	char* input = (char*)malloc(bufferSize * sizeof(char));
