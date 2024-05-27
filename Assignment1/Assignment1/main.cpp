@@ -1,8 +1,10 @@
 #include <stdio.h> 
 #include <stdlib.h>
+#include <string.h>
 
-size_t bufferSize = 256;
+const size_t bufferSize = 256;
 char** text;
+int columnAmount = 256;
 int rowsAmount = 10;
 int curRow = 0;
 
@@ -11,7 +13,7 @@ void array2dMalloc(char** arr)
 	arr = (char**)malloc(rowsAmount * sizeof(char*));
 	for (int i = 0; i < rowsAmount-1; i++)
 	{
-		arr[i] = (char*)calloc(bufferSize, sizeof(char));
+		arr[i] = (char*)calloc(columnAmount, sizeof(char));
 	}
 }
 
@@ -77,7 +79,7 @@ void textPrint(void)
 void saveToFile(void)
 {
 	printf("Enter the path to file: ");
-	char path[256];
+	char path[bufferSize];
 	fgets(path, bufferSize, stdin);
 	FILE* file = fopen(path, "w");
 	if (file != NULL)
@@ -86,6 +88,22 @@ void saveToFile(void)
 		{
 			fputs((text[r],"\n"), file);
 		}
+	}
+	fclose(file);
+}
+
+void loadFromFile(void)
+{
+	printf("Enter the path to file: ");
+	char path[bufferSize];
+	fgets(path, bufferSize, stdin);
+	char lineFromFile[bufferSize];
+	int row = 0;
+	FILE* file = fopen(path, "r");
+	while (fgets(lineFromFile, bufferSize, file) != NULL) 
+	{
+		strcpy(text[row], lineFromFile);
+		row++;
 	}
 	fclose(file);
 }
