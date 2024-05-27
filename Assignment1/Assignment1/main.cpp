@@ -74,14 +74,28 @@ void textPrint(void)
 	}
 }
 
-
+void saveToFile(void)
+{
+	printf("Enter the path to file: ");
+	char path[256];
+	fgets(path, bufferSize, stdin);
+	FILE* file = fopen(path, "w");
+	if (file != NULL)
+	{
+		for (int r = 0; r <= curRow; r++)
+		{
+			fputs((text[r],"\n"), file);
+		}
+	}
+	fclose(file);
+}
 
 int main(void) 
 { 
 	//to make a dynamic array!
 	array2dMalloc(text);
 	printInfo();
-	char* input = (char*)malloc(bufferSize * sizeof(char));
+	char input[16];
 	printf("Enter a number: ");
 	fgets(input, bufferSize, stdin);
 	//free(input);
