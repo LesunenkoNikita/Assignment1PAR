@@ -37,7 +37,7 @@ void appendText(void)
 	int idx = 0;
 	for (idx; idx < sizeof(text[curRow] - 1); idx++)
 	{
-		if (text[curRow][idx] = '\0')
+		if (text[curRow][idx] == '\0')
 		{
 			break;
 		}
@@ -62,7 +62,7 @@ void textPrint(void)
 	{
 		/*for (int i = 0; i < sizeof(text[r]) - 1; i++)
 		{
-			if (text[r][i] = '\0')
+			if (text[r][i] == '\0')
 			{
 				printf("\n");
 				break;
@@ -105,7 +105,38 @@ void loadFromFile(void)
 		strcpy(text[row], lineFromFile);
 		row++;
 	}
+	curRow = row;
 	fclose(file);
+}
+
+void search(void)
+{
+	printf("Enter the word you want to search: ");
+	char word[bufferSize];
+	fgets(word, bufferSize, stdin);
+	int i = 0;
+	for (int r = 0; r < curRow; r++)
+	{
+		for (int j = 0; j < sizeof(text[r]) - 1; j++) 
+		{
+			if (text[r][j] == word[i])
+			{
+				if (i == sizeof(word)-1)
+				{
+					printf("The word you search is in row %d starting on index %d", r, j-sizeof(word)+1);
+					i = 0;
+				}
+				else
+				{
+					i++;
+				}
+			}
+			else
+			{
+				i = 0;
+			}
+		}
+	}
 }
 
 int main(void) 
