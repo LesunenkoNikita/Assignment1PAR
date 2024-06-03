@@ -11,10 +11,10 @@ int curRow = 0;
 
 void array2dMalloc(void) 
 {
-	text = (char**)malloc(rowsAmount * sizeof(char*));
+	text = (char**)calloc(rowsAmount, sizeof(char*));
 	for (int i = 0; i < rowsAmount; i++)
 	{
-		text[i] = (char*)malloc(columnAmount * sizeof(char));
+		text[i] = (char*)calloc(columnAmount, sizeof(char));
 	}
 	text[0][0] = '\0';
 }
@@ -87,22 +87,24 @@ void saveToFile(void)
 	fclose(file);
 }
 
-//void loadFromFile(void)
-//{
-//	printf("Enter the path to file: ");
-//	char path[bufferSize];
-//	fgets(path, bufferSize, stdin);
-//	char lineFromFile[bufferSize];
-//	int row = 0;
-//	FILE* file = fopen(path, "r");
-//	while (fgets(lineFromFile, bufferSize, file) != NULL) 
-//	{
-//		strcpy(text[row], lineFromFile);
-//		row++;
-//	}
-//	curRow = row;
-//	fclose(file);
-//}
+void loadFromFile(void)
+{ 
+	printf("Enter the path to file: ");
+	char path[bufferSize];
+	fgets(path, bufferSize, stdin);
+	path[strcspn(path, "\n")] = '\0';
+	char lineFromFile[bufferSize];
+	int row = 0;
+	FILE* file = fopen(path, "r");
+	while (fgets(lineFromFile, bufferSize, file) != NULL) 
+	{
+		strcpy(text[row], lineFromFile);
+		row++;
+	}
+	curRow = row;
+	text[curRow-1][strlen(text[curRow-1])] = '\0';
+	fclose(file);
+}
 
 /*void search(void)
 {
@@ -143,15 +145,17 @@ int main(void)
 { 
 	//to make a dynamic array!
 	array2dMalloc();
+	loadFromFile();
+	textPrint();
 	//printInfo();
 	/*char input[16];
 	printf("Enter a number: ");
 	fgets(input, bufferSize, stdin);*/
-	appendText();
+	/*appendText();
 	newLine();
 	appendText();
-	textPrint();
-	saveToFile();
+	textPrint();*/
+	//saveToFile();
 	//search();
 	//free(input);
 	return 0; 
