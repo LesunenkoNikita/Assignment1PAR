@@ -56,6 +56,7 @@ void appendText(void)
 void newLine(void)	
 {
 	curRow++;
+	text[curRow][0] = '\0';
 	printf("New line is started!\n");
 }
 
@@ -63,7 +64,8 @@ void textPrint(void)
 {
 	for (int r = 0; r <= curRow; r++)
 	{
-		printf("%s", text[r]);
+		printf(text[r]);
+		printf("\n");
 	}
 	printf("\n");
 }
@@ -101,7 +103,7 @@ void textPrint(void)
 //	fclose(file);
 //}
 
-void search(void)
+/*void search(void)
 {
 	printf("Enter the word you want to search: ");
 	char word[bufferSize];
@@ -129,7 +131,7 @@ void search(void)
 			}
 		}
 	}
-}
+}*/
 
 //void insertText(void) 
 //{
@@ -145,7 +147,7 @@ int main(void)
 	printf("Enter a number: ");
 	fgets(input, bufferSize, stdin);*/
 	appendText();
-	//newLine();
+	newLine();
 	appendText();
 	textPrint();
 	search();
