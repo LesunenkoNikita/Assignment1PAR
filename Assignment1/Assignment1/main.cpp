@@ -81,6 +81,7 @@ void saveToFile(void)
 		for (int r = 0; r <= curRow; r++)
 		{
 			fputs(text[r], file);
+			fputs("\n", file);
 		}
 	}
 	fclose(file);
