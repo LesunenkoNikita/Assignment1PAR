@@ -106,21 +106,22 @@ void loadFromFile(void)
 	fclose(file);
 }
 
-/*void search(void)
+void search(void)
 {
 	printf("Enter the word you want to search: ");
 	char word[bufferSize];
-	fgets(word, bufferSize, stdin); !!!
+	fgets(word, bufferSize, stdin);
+	word[strcspn(word, "\n")] = '\0';
 	int i = 0;
-	for (int r = 0; r < curRow; r++) !!!
+	for (int r = 0; r <= curRow; r++)
 	{
-		for (int j = 0; j < strlen(text[r]) - 1; j++)  !!!
+		for (int j = 0; j < strlen(text[r]); j++)
 		{
 			if (text[r][j] == word[i])
 			{
 				if (i == strlen(word)-1)
 				{
-					printf("The word you search is in row %d starting on index %d", r, j-sizeof(word)+1);
+					printf("The word you search is in row %d starting on index %d\n", r, j-strlen(word)+1);
 					i = 0;
 				}
 				else
@@ -134,29 +135,25 @@ void loadFromFile(void)
 			}
 		}
 	}
-}*/
+}
 
-//void insertText(void) 
-//{
-//	
-//}
 
 int main(void) 
 { 
 	//to make a dynamic array!
 	array2dMalloc();
-	loadFromFile();
-	textPrint();
+	/*loadFromFile();
+	textPrint();*/
 	//printInfo();
 	/*char input[16];
 	printf("Enter a number: ");
 	fgets(input, bufferSize, stdin);*/
-	/*appendText();
+	appendText();
 	newLine();
 	appendText();
-	textPrint();*/
-	//saveToFile();
-	//search();
+	textPrint();
+	//savetofile();
+	search();
 	//free(input);
 	return 0; 
 }
