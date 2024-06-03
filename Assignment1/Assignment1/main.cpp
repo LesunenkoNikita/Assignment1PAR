@@ -1,4 +1,4 @@
-#define _CTR_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +12,7 @@ int curRow = 0;
 void array2dMalloc(void) 
 {
 	text = (char**)malloc(rowsAmount * sizeof(char*));
-	for (int i = 0; i < rowsAmount-1; i++)
+	for (int i = 0; i < rowsAmount; i++)
 	{
 		text[i] = (char*)malloc(columnAmount * sizeof(char));
 	}
@@ -37,7 +37,7 @@ void appendText(void)
 	char* input = (char*)malloc(bufferSize * sizeof(char));
 	fgets(input, bufferSize, stdin);
 	int idx = 0;
-	for (idx; idx < strlen(text[curRow] - 1); idx++)
+	for (idx; idx < strlen(text[curRow]); idx++)
 	{
 		if (text[curRow][idx] == '\0')
 		{
@@ -67,25 +67,25 @@ void textPrint(void)
 		printf(text[r]);
 		printf("\n");
 	}
-	printf("\n");
 }
 
-//void saveToFile(void)
-//{
-//	printf("Enter the path to file: ");
-//	char path[bufferSize];
-//	fgets(path, bufferSize, stdin);
-//	FILE* file = fopen(path, "w");
-//	if (file != NULL)
-//	{
-//		for (int r = 0; r <= curRow; r++)
-//		{
-//			fputs((text[r],"\n"), file);
-//		}
-//	}
-//	fclose(file);
-//}
-//
+void saveToFile(void)
+{
+	printf("Enter the path to the file: ");
+	char path[bufferSize];
+	fgets(path, bufferSize, stdin);
+	path[strcspn(path,"\n")] = '\0';
+	FILE* file = fopen(path, "w");
+	if (file != NULL)
+	{
+		for (int r = 0; r <= curRow; r++)
+		{
+			fputs(text[r], file);
+		}
+	}
+	fclose(file);
+}
+
 //void loadFromFile(void)
 //{
 //	printf("Enter the path to file: ");
@@ -107,11 +107,11 @@ void textPrint(void)
 {
 	printf("Enter the word you want to search: ");
 	char word[bufferSize];
-	fgets(word, bufferSize, stdin);
+	fgets(word, bufferSize, stdin); !!!
 	int i = 0;
-	for (int r = 0; r < curRow; r++)
+	for (int r = 0; r < curRow; r++) !!!
 	{
-		for (int j = 0; j < strlen(text[r]) - 1; j++) 
+		for (int j = 0; j < strlen(text[r]) - 1; j++)  !!!
 		{
 			if (text[r][j] == word[i])
 			{
@@ -150,7 +150,8 @@ int main(void)
 	newLine();
 	appendText();
 	textPrint();
-	search();
+	saveToFile();
+	//search();
 	//free(input);
 	return 0; 
 }
