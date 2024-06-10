@@ -137,23 +137,39 @@ void search(void)
 	}
 }
 
+void insertText(void)
+{
+	printf("Choose line and index: ");
+	char input[bufferSize];
+	fgets(input, bufferSize, stdin);
+	input[strcspn(input, "\n")] = '\0';
+	int row, idx;
+	sscanf(input, "%d %d", &row, &idx);
+	row--;
+	printf("Enter text to insert: ");
+	char word[bufferSize];
+	fgets(word, bufferSize, stdin);
+	word[strcspn(word, "\n")] = '\0';
+	int len = strlen(word);
+	for (int i = strlen(text[row]); i >= idx; i--)
+	{
+		text[row][i + len] = text[row][i];
+	}
+	for (int n = 0; n < len; n++)
+	{
+		text[row][idx] = word[n];
+		idx++;
+	}
+}
+
 
 int main(void) 
 { 
 	//to make a dynamic array!
 	array2dMalloc();
-	/*loadFromFile();
-	textPrint();*/
-	//printInfo();
-	/*char input[16];
-	printf("Enter a number: ");
-	fgets(input, bufferSize, stdin);*/
-	appendText();
-	newLine();
 	appendText();
 	textPrint();
-	//savetofile();
-	search();
-	//free(input);
+	insertText();
+	textPrint();
 	return 0; 
 }
