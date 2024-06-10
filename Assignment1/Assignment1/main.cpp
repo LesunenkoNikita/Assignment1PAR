@@ -165,11 +165,56 @@ void insertText(void)
 
 int main(void) 
 { 
-	//to make a dynamic array!
 	array2dMalloc();
-	appendText();
-	textPrint();
-	insertText();
-	textPrint();
+	printInfo();
+	while (1)
+	{
+		printf("Enter the command: ");
+		char* input = (char*)malloc(bufferSize * sizeof(char));
+		fgets(input, bufferSize, stdin);
+		input[strcspn(input, "\n")] = '\0';
+		if (strcmp(input, "1") == 0)
+		{
+			appendText();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "2") == 0)
+		{
+			newLine();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "3") == 0)
+		{
+			saveToFile();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "4") == 0)
+		{
+			loadFromFile();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "5") == 0)
+		{
+			textPrint();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "6") == 0)
+		{
+			insertText();
+			free(input);
+			continue;
+		}
+		else if (strcmp(input, "7") == 0)
+		{
+			search();
+			free(input);
+			continue;
+		}
+	}
 	return 0; 
 }
