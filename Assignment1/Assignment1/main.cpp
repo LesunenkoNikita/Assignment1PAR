@@ -36,6 +36,14 @@ void appendText(void)
 	printf("Enter the text you want to append: ");
 	char* input = (char*)malloc(bufferSize * sizeof(char));
 	fgets(input, bufferSize, stdin);
+	if (sizeof(input) > (columnAmount - sizeof(text[curRow]))) 
+	{
+		columnAmount *= 2;
+		for (int i = 0; i < rowsAmount; i++)
+		{
+			text[i] = (char*)realloc(text[i], columnAmount * sizeof(char));
+		}
+	}
 	int idx = 0;
 	for (idx; idx < strlen(text[curRow]); idx++)
 	{
@@ -55,6 +63,15 @@ void appendText(void)
 
 void newLine(void)	
 {
+	if (curRow + 1 == rowsAmount)
+	{
+		rowsAmount *= 2;
+		text = (char**)realloc(text, rowsAmount * sizeof(char*));
+		for (int i = curRow + 1; i < rowsAmount; i++)
+		{
+			text[i] = (char*)realloc(text[i], columnAmount * sizeof(char));
+		}
+	}
 	curRow++;
 	text[curRow][0] = '\0';
 	printf("New line is started!\n");
@@ -150,6 +167,14 @@ void insertText(void)
 	char word[bufferSize];
 	fgets(word, bufferSize, stdin);
 	word[strcspn(word, "\n")] = '\0';
+	if (sizeof(word) > (columnAmount - sizeof(text[row])))
+	{
+		columnAmount *= 2;
+		for (int i = 0; i < rowsAmount; i++)
+		{
+			text[i] = (char*)realloc(text[i], columnAmount * sizeof(char));
+		}
+	}
 	int len = strlen(word);
 	for (int i = strlen(text[row]); i >= idx; i--)
 	{
