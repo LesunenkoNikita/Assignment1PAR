@@ -15,6 +15,11 @@ void array2dMalloc(void)
 	for (int i = 0; i < rowsAmount; i++)
 	{
 		text[i] = (char*)calloc(columnAmount, sizeof(char));
+		if (text[i] == 0)
+		{
+			printf("Memory callocation failed! Exiting...");
+			exit(1);
+		}
 	}
 	text[0][0] = '\0';
 }
@@ -163,6 +168,11 @@ void insertText(void)
 	int row, idx;
 	sscanf(input, "%d %d", &row, &idx);
 	row--;
+	if (row > rowsAmount || row < 0 || idx < 0 || idx > columnAmount)
+	{
+		printf("Wrong input! Exiting...");
+		exit(1);
+	}
 	printf("Enter text to insert: ");
 	char word[bufferSize];
 	fgets(word, bufferSize, stdin);
@@ -239,6 +249,11 @@ int main(void)
 			search();
 			free(input);
 			continue;
+		}
+		else
+		{
+			printf("Wrong input! Exiting...");
+			exit(1);
 		}
 	}
 	return 0; 
